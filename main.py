@@ -1,10 +1,11 @@
 import sys
 
-from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QApplication, QDialog
 
 from database_func import *
+from addEditCoffeeForm import Ui_Dialog as dI
+from main_window import Ui_MainWindow as mW
 
 ALL_ROAST_DEGREES = ['Светлая', 'Средняя', 'Тёмная']
 GROUND_IN_GRAINS = ['Молотый', 'В зёрнах']
@@ -14,11 +15,11 @@ class MultipleChoiceError(Exception):
     pass
 
 
-class TableWindow(QMainWindow):
+class TableWindow(QMainWindow, mW):
     def __init__(self):
         super().__init__()
 
-        uic.loadUi('main.ui', self)
+        self.setupUi(self)
 
         self.dialog = None
 
@@ -58,12 +59,12 @@ class TableWindow(QMainWindow):
             self.state_label.setText('Чтобы изменить данные таблицы, выберете только одну строку')
 
 
-class AddEditCoffeeForm(QDialog):
+class AddEditCoffeeForm(QDialog, dI):
     def __init__(self, main_win):
         super().__init__()
 
         self.main_win = main_win
-        uic.loadUi('addEditCoffeeForm.ui', self)
+        self.setupUi(self)
 
         self.return_to_main.clicked.connect(self.commit)
         self.degree_of_roast.addItems(ALL_ROAST_DEGREES)

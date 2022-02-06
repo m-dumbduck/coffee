@@ -2,7 +2,7 @@ import sqlite3
 
 
 def database_dialog(que, *inf):
-    connection = sqlite3.connect('coffee_database.db')
+    connection = sqlite3.connect('data/coffee_database.db')
     cursor = connection.cursor()
     information = cursor.execute(que, inf).fetchall()
     connection.commit()
